@@ -1,0 +1,28 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/seedpay_bg.qm</file>
+        <file alias="ca">locale/seedpay_ca.qm</file>
+        <file alias="cs">locale/seedpay_cs.qm</file>
+        <file alias="da">locale/seedpay_da.qm</file>
+        <file alias="de">locale/seedpay_de.qm</file>
+        <file alias="en">locale/seedpay_en.qm</file>
+        <file alias="en_US">locale/seedpay_en_US.qm</file>
+        <file alias="es">locale/seedpay_es.qm</file>
+        <file alias="fi">locale/seedpay_fi.qm</file>
+        <file alias="fr_FR">locale/seedpay_fr_FR.qm</file>
+        <file alias="it">locale/seedpay_it.qm</file>
+        <file alias="ja">locale/seedpay_ja.qm</file>
+        <file alias="ko_KR">locale/seedpay_ko_KR.qm</file>
+        <file alias="nl">locale/seedpay_nl.qm</file>
+        <file alias="pl">locale/seedpay_pl.qm</file>
+        <file alias="pt">locale/seedpay_pt.qm</file>
+        <file alias="pt_BR">locale/seedpay_pt_BR.qm</file>
+        <file alias="ro_RO">locale/seedpay_ro_RO.qm</file>
+        <file alias="ru">locale/seedpay_ru.qm</file>
+        <file alias="sk">locale/seedpay_sk.qm</file>
+        <file alias="sv">locale/seedpay_sv.qm</file>
+        <file alias="uk">locale/seedpay_uk.qm</file>
+        <file alias="zh_CN">locale/seedpay_zh_CN.qm</file>
+        <file alias="zh_TW">locale/seedpay_zh_TW.qm</file>
+    </qresource>
+</RCC>

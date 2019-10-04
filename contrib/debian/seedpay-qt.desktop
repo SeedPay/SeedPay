@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Seedpay
+Comment=Seedpay P2P Cryptocurrency
+Comment[fr]=Seedpay, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Seedpay, eşten eşe kriptografik sanal para birimi
+Exec=Seedpay-qt %u
+Terminal=false
+Type=Application
+Icon=Seedpay128
+MimeType=x-scheme-handler/Seedpay;
+Categories=Office;Finance;

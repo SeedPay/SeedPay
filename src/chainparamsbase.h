@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between pivx-cli and pivxd)
- * of a given instance of the Pivx system.
+ * CBaseChainParams defines the base parameters (shared between Seedpay-cli and Seedpayd)
+ * of a given instance of the Seedpay system.
  */
 class CBaseChainParams
 {

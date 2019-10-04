@@ -95,7 +95,7 @@ public:
 };
 
 /**
- * PIVX RPC command dispatcher.
+ * Seedpay RPC command dispatcher.
  */
 class CRPCTable
 {

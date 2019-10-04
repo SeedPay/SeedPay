@@ -1,0 +1,26 @@
+[Unit]
+Description=Seedpay's distributed currency daemon
+After=network.target
+
+[Service]
+User=Seedpay
+Group=Seedpay
+
+Type=forking
+PIDFile=/var/lib/Seedpayd/Seedpayd.pid
+
+ExecStart=/usr/bin/Seedpayd -daemon -pid=/var/lib/Seedpayd/Seedpayd.pid \
+          -conf=/etc/Seedpay/Seedpay.conf -datadir=/var/lib/Seedpayd
+
+ExecStop=-/usr/bin/Seedpay-cli -conf=/etc/Seedpay/Seedpay.conf \
+         -datadir=/var/lib/Seedpayd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
