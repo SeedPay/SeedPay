@@ -116,7 +116,7 @@ OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
 {
     nDisplayUnit = 0; // just make sure it's not unitialized
     ui->setupUi(this);
-
+    ui->frameObfuscation->setVisible(false);
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
     ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
