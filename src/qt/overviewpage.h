@@ -17,7 +17,7 @@ class QLabel;
 class QProgressDialog;
 class QSlider;
 QT_END_NAMESPACE
-
+class TorrentView;
 class ClientModel;
 class TransactionFilterProxy;
 class TxViewDelegate;

@@ -37,7 +37,7 @@ class TorrentViewDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:
-    inline TorrentViewDelegate(MainWindow *mainWindow) : QItemDelegate(mainWindow) {}
+    inline TorrentViewDelegate(OverviewPage *overviewPage) : QItemDelegate(overviewPage) {}
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option,
                const QModelIndex &index ) const Q_DECL_OVERRIDE
@@ -60,7 +60,7 @@ public:
         progressBarOption.textVisible = true;
 
         // Set the progress and text values of the style option.
-        int progress = qobject_cast<MainWindow *>(parent())->clientForRow(index.row())->progress();
+        int progress = qobject_cast<OverviewPage *>(parent())->clientForRow(index.row())->progress();
         progressBarOption.progress = progress < 0 ? 0 : progress;
         progressBarOption.text = QString::asprintf("%d%%", progressBarOption.progress);
 
