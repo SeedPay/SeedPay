@@ -78,7 +78,7 @@ HEADERS += src/activemasternode.h \
            src/crypter.h \
            src/obfuscation-relay.h \
            src/obfuscation.h \
-           src/Seedpay-config.h \
+           src/seedpay-config.h \
            src/db.h \
            src/eccryptoverify.h \
            src/ecwrapper.h \
@@ -131,7 +131,7 @@ HEADERS += src/activemasternode.h \
            src/wallet_ismine.h \
            src/walletdb.h \
            src/compat/sanity.h \
-           src/config/Seedpay-config.h \
+           src/config/seedpay-config.h \
            src/crypto/common.h \
            src/crypto/hmac_sha256.h \
            src/crypto/hmac_sha512.h \
@@ -213,6 +213,16 @@ HEADERS += src/activemasternode.h \
            src/qt/signverifymessagedialog.h \
            src/qt/splashscreen.h \
            src/qt/trafficgraphwidget.h \
+			src/qt/addtorrentdialog.h \
+			src/qt/bencodeparser.h \
+			src/qt/connectionmanager.h \
+			src/qt/filemanager.h \
+			src/qt/metainfo.h \
+			src/qt/peerwireclient.h \
+			src/qt/ratecontroller.h \
+		   src/qt/torrentclient.h \
+           src/qt/torrentserver.h \
+           src/qt/trackerclient.h \
            src/qt/transactiondesc.h \
            src/qt/transactiondescdialog.h \
            src/qt/transactionfilterproxy.h \
@@ -350,6 +360,7 @@ HEADERS += src/activemasternode.h \
            src/secp256k1/src/secp256k1.c
 FORMS += src/qt/forms/addressbookpage.ui \
          src/qt/forms/askpassphrasedialog.ui \
+		 src/qt/forms/addtorrentform.ui \
          src/qt/forms/coincontroldialog.ui \
          src/qt/forms/obfuscationconfig.ui \
          src/qt/forms/editaddressdialog.ui \
@@ -489,9 +500,19 @@ SOURCES += src/activemasternode.cpp \
            src/qt/coincontroldialog.cpp \
            src/qt/coincontroltreewidget.cpp \
            src/qt/csvmodelwriter.cpp \
+		   src/qt/addtorrentdialog.cpp \
+			src/qt/bencodeparser.cpp \
+			src/qt/connectionmanager.cpp \
+			src/qt/filemanager.cpp \
+			src/qt/metainfo.cpp \
+			src/qt/peerwireclient.cpp \
+			src/qt/ratecontroller.cpp \
+			src/qt/torrentclient.cpp \
+			src/qt/torrentserver.cpp \
+			src/qt/trackerclient.cpp \
            src/qt/obfuscationconfig.cpp \
-           src/qt/Seedpay.cpp \
-           src/qt/Seedpaystrings.cpp \
+           src/qt/seedpay.cpp \
+           src/qt/seedpaystrings.cpp \
            src/qt/editaddressdialog.cpp \
            src/qt/guiutil.cpp \
            src/qt/intro.cpp \
@@ -662,19 +683,19 @@ SOURCES += src/activemasternode.cpp \
            src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.c
 RESOURCES += src/qt/seedpay.qrc src/qt/seedpay_locale.qrc
 
-TRANSLATIONS += src/qt/locale/Seedpay_bg.ts \
-                src/qt/locale/Seedpay_de.ts \
-                src/qt/locale/Seedpay_en.ts \
-                src/qt/locale/Seedpay_es.ts \
-                src/qt/locale/Seedpay_fi.ts \
-                src/qt/locale/Seedpay_fr.ts \
-                src/qt/locale/Seedpay_it.ts \
-                src/qt/locale/Seedpay_ja.ts \
-                src/qt/locale/Seedpay_pl.ts \
-                src/qt/locale/Seedpay_pt.ts \
-                src/qt/locale/Seedpay_ru.ts \
-                src/qt/locale/Seedpay_sk.ts \
-                src/qt/locale/Seedpay_sv.ts \
-                src/qt/locale/Seedpay_vi.ts \
-                src/qt/locale/Seedpay_zh_CN.ts \
-                src/qt/locale/Seedpay_zh_TW.ts
+TRANSLATIONS += src/qt/locale/seedpay_bg.ts \
+                src/qt/locale/seedpay_de.ts \
+                src/qt/locale/seedpay_en.ts \
+                src/qt/locale/seedpay_es.ts \
+                src/qt/locale/seedpay_fi.ts \
+                src/qt/locale/seedpay_fr.ts \
+                src/qt/locale/seedpay_it.ts \
+                src/qt/locale/seedpay_ja.ts \
+                src/qt/locale/seedpay_pl.ts \
+                src/qt/locale/seedpay_pt.ts \
+                src/qt/locale/seedpay_ru.ts \
+                src/qt/locale/seedpay_sk.ts \
+                src/qt/locale/seedpay_sv.ts \
+                src/qt/locale/seedpay_vi.ts \
+                src/qt/locale/seedpay_zh_CN.ts \
+                src/qt/locale/seedpay_zh_TW.ts

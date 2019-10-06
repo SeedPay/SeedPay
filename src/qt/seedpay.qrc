@@ -17,6 +17,12 @@
         <file alias="transaction_3">res/icons/clock3.png</file>
         <file alias="transaction_4">res/icons/clock4.png</file>
         <file alias="transaction_5">res/icons/clock5.png</file>
+		<file alias="1uparrow">res/icons/1uparrow.png</file>
+		<file alias="1downarrow">res/icons/1downarrow.png</file>
+		<file alias="bottom">res/icons/bottom.png</file>
+		<file alias="player_pause">res/icons/player_pause.png</file>
+		<file alias="player_play">res/icons/player_play.png</file>
+		<file alias="player_stop">res/icons/player_stop.png</file>
         <file alias="eye">res/icons/eye.png</file>
         <file alias="eye_minus">res/icons/eye_minus.png</file>
         <file alias="eye_plus">res/icons/eye_plus.png</file>

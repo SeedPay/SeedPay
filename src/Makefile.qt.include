@@ -31,6 +31,7 @@ QT_TS = \
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
   qt/forms/askpassphrasedialog.ui \
+  qt/forms/addtorrentform.ui \
   qt/forms/bip38tooldialog.ui \
   qt/forms/coincontroldialog.ui \
   qt/forms/blockexplorer.ui \
@@ -54,6 +55,7 @@ QT_FORMS_UI = \
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
   qt/moc_addresstablemodel.cpp \
+  qt/moc_addtorrentform.cpp.cpp \
   qt/moc_askpassphrasedialog.cpp \
   qt/moc_bip38tooldialog.cpp \
   qt/moc_bitcoinaddressvalidator.cpp \
@@ -176,7 +178,17 @@ BITCOIN_QT_H = \
   qt/walletmodel.h \
   qt/walletmodeltransaction.h \
   qt/walletview.h \
-  qt/winshutdownmonitor.h
+  qt/winshutdownmonitor.h \
+  qt/addtorrentdialog.h \
+  qt/bencodeparser.h \
+  qt/connectionmanager.h \
+  qt/filemanager.h \
+  qt/metainfo.h \
+  qt/peerwireclient.h \
+  qt/ratecontroller.h \
+  qt/torrentclient.h \
+  qt/torrentserver.h \
+  qt/trackerclient.h 
 
 RES_ICONS = \
   qt/res/icons/add.png \
@@ -234,7 +246,13 @@ RES_ICONS = \
   qt/res/icons/unit_useedpay.png \
   qt/res/icons/unit_tseedpay.png \
   qt/res/icons/unit_tmseedpay.png \
-  qt/res/icons/unit_tuseedpay.png
+  qt/res/icons/unit_tuseedpay.png \
+  qt/res/icons/1uparrow.png \
+  qt/res/icons/1downarrow.png \
+  qt/res/icons/bottom.png \
+  qt/res/icons/player_pause.png \
+  qt/res/icons/player_play.png \
+  qt/res/icons/player_stop.png
 
 BITCOIN_QT_CPP = \
   qt/bitcoinaddressvalidator.cpp \
@@ -293,7 +311,17 @@ BITCOIN_QT_CPP += \
   qt/walletframe.cpp \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
-  qt/walletview.cpp
+  qt/walletview.cpp \
+  qt/addtorrentdialog.cpp \
+  qt/bencodeparser.cpp \
+  qt/connectionmanager.cpp \
+  qt/filemanager.cpp \
+  qt/metainfo.cpp \
+  qt/peerwireclient.cpp \
+  qt/ratecontroller.cpp \
+  qt/torrentclient.cpp \
+  qt/torrentserver.cpp \
+  qt/trackerclient.cpp 
 
 endif
 
@@ -314,7 +342,7 @@ RES_IMAGES = \
 
 RES_CSS = \
   qt/res/css/default.css \
-    qt/res/css/dark.css
+  qt/res/css/dark.css
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
