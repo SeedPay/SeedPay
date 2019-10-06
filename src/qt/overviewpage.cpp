@@ -207,7 +207,7 @@ OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
 	
 	    // Initialize some static strings
     QStringList headers;
-    headers << tr("Torrent") << tr("Peers/Seeds") << tr("Progress")
+    headers << tr("Torrent") << tr("Peers | Seeds") << tr("Progress")
             << tr("Down rate") << tr("Up rate") << tr("Status");
 
     // Main torrent list
@@ -234,48 +234,6 @@ OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
     pauseTorrentAction = new QAction(QIcon(":/icons/player_pause.png"), tr("&Pause torrent"), this);
     removeTorrentAction = new QAction(QIcon(":/icons/player_stop.png"), tr("&Remove torrent"), this);
 
-    // File menu
-    QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(newTorrentAction);
-    fileMenu->addAction(pauseTorrentAction);
-    fileMenu->addAction(removeTorrentAction);
-    fileMenu->addSeparator();
-    fileMenu->addAction(QIcon(":/icons/exit.png"), tr("E&xit"), this, SLOT(close()));
-
-    // Help menu
-    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
-    helpMenu->addAction(tr("&About"), this, SLOT(about()));
-    helpMenu->addAction(tr("About &Qt"), qApp, SLOT(aboutQt()));
-
-    // Top toolbar
-    QToolBar *topBar = new QToolBar(tr("Tools"));
-    addToolBar(Qt::TopToolBarArea, topBar);
-    topBar->setMovable(false);
-    topBar->addAction(newTorrentAction);
-    topBar->addAction(removeTorrentAction);
-    topBar->addAction(pauseTorrentAction);
-    topBar->addSeparator();
-    downActionTool = topBar->addAction(QIcon(tr(":/icons/1downarrow.png")), tr("Move down"));
-    upActionTool = topBar->addAction(QIcon(tr(":/icons/1uparrow.png")), tr("Move up"));
-
-    // Bottom toolbar
-    QToolBar *bottomBar = new QToolBar(tr("Rate control"));
-    addToolBar(Qt::BottomToolBarArea, bottomBar);
-    bottomBar->setMovable(false);
-    downloadLimitSlider = new QSlider(Qt::Horizontal);
-    downloadLimitSlider->setRange(0, 1000);
-    bottomBar->addWidget(new QLabel(tr("Max download:")));
-    bottomBar->addWidget(downloadLimitSlider);
-    bottomBar->addWidget((downloadLimitLabel = new QLabel(tr("0 KB/s"))));
-    downloadLimitLabel->setFixedSize(QSize(fm.width(tr("99999 KB/s")), fm.lineSpacing()));
-    bottomBar->addSeparator();
-    uploadLimitSlider = new QSlider(Qt::Horizontal);
-    uploadLimitSlider->setRange(0, 1000);
-    bottomBar->addWidget(new QLabel(tr("Max upload:")));
-    bottomBar->addWidget(uploadLimitSlider);
-    bottomBar->addWidget((uploadLimitLabel = new QLabel(tr("0 KB/s"))));
-    uploadLimitLabel->setFixedSize(QSize(fm.width(tr("99999 KB/s")), fm.lineSpacing()));
-
 #ifdef Q_OS_OSX
     setUnifiedTitleAndToolBarOnMac(true);
 #endif
@@ -300,8 +258,6 @@ OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
     connect(downActionTool, SIGNAL(triggered(bool)),
             this, SLOT(moveTorrentDown()));
 
-    // Load settings and start
-    setWindowTitle(tr("Torrent Client"));
     setActionsEnabled();
     QMetaObject::invokeMethod(this, "loadSettings", Qt::QueuedConnection);
 	
