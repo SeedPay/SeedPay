@@ -32,6 +32,14 @@
 #define ICON_OFFSET 16
 #define NUM_ITEMS 3
 
+// TorrentView extends QTreeWidget to allow drag and drop.
+class TorrentView : public QTreeWidget
+{
+    Q_OBJECT
+public:
+    TorrentView(QWidget *parent = 0);
+};
+
 // TorrentViewDelegate is used to draw the progress bars.
 class TorrentViewDelegate : public QItemDelegate
 {
