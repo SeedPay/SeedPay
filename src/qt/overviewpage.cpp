@@ -1120,33 +1120,3 @@ void OverviewPage::about()
 
     about.exec();
 }
-
-void OverviewPage::closeEvent(QCloseEvent *)
-{
-    if (jobs.isEmpty())
-        return;
-
-    // Save upload / download numbers.
-    saveSettings();
-    saveChanges = false;
-
-    quitDialog = new QProgressDialog(tr("Disconnecting from trackers"), tr("Abort"), 0, jobsToStop, this);
-
-    // Stop all clients, remove the rows from the view and wait for
-    // them to signal that they have stopped.
-    jobsToStop = 0;
-    jobsStopped = 0;
-    foreach (Job job, jobs) {
-        ++jobsToStop;
-        TorrentClient *client = job.client;
-        client->disconnect();
-        connect(client, SIGNAL(stopped()), this, SLOT(torrentStopped()));
-        client->stop();
-        delete torrentView->takeTopLevelItem(0);
-    }
-
-    if (jobsToStop > jobsStopped)
-        quitDialog->exec();
-    quitDialog->deleteLater();
-    quitDialog = 0;
-}

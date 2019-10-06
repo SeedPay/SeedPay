@@ -46,9 +46,6 @@ public:
 	const TorrentClient *clientForRow(int row) const;
     void shutdownTorrents();
     QAction *newTorrentAction;
-	
-protected:
-    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
     void obfuScationStatus();
