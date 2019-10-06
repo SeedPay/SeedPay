@@ -152,6 +152,16 @@ HEADERS += src/activemasternode.h \
            src/crypto/sph_simd.h \
            src/crypto/sph_skein.h \
            src/crypto/sph_types.h \
+		   src/crypto/Lyra2REV2/Lyra2.h \
+           src/crypto/Lyra2REV2/Lyra2RE.h \
+           src/crypto/Lyra2REV2/sph_blake.h \
+           src/crypto/Lyra2REV2/sph_bmw.h \
+           src/crypto/Lyra2REV2/sph_cubehash.h \
+           src/crypto/Lyra2REV2/sph_groestl.h \
+           src/crypto/Lyra2REV2/sph_keccak.h \
+           src/crypto/Lyra2REV2/sph_skein.h \
+           src/crypto/Lyra2REV2/sph_types.h \
+           src/crypto/Lyra2REV2/Sponge.h \
            src/json/json_spirit.h \
            src/json/json_spirit_error_position.h \
            src/json/json_spirit_reader.h \
@@ -454,6 +464,15 @@ SOURCES += src/activemasternode.cpp \
            src/crypto/shavite.c \
            src/crypto/simd.c \
            src/crypto/skein.c \
+		   src/crypto/Lyra2REV2/blake.c \
+		   src/crypto/Lyra2REV2/bmw.c \
+		   src/crypto/Lyra2REV2/cubehash.c \
+		   src/crypto/Lyra2REV2/groestl.c \
+		   src/crypto/Lyra2REV2/keccak.c \
+		   src/crypto/Lyra2REV2/Lyra2.c \
+		   src/crypto/Lyra2REV2/Lyra2RE.c \
+		   src/crypto/Lyra2REV2/skein.c \
+		   src/crypto/Lyra2REV2/Sponge.c \
            src/json/json_spirit_reader.cpp \
            src/json/json_spirit_value.cpp \
            src/json/json_spirit_writer.cpp \
