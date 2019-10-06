@@ -6,8 +6,19 @@
 #define BITCOIN_QT_OVERVIEWPAGE_H
 
 #include "amount.h"
+#include "torrentclient.h"
 
 #include <QWidget>
+
+QT_BEGIN_NAMESPACE
+class QModelIndex;
+class QAction;
+class QLabel;
+class QProgressDialog;
+class QSlider;
+QT_END_NAMESPACE
+
+class TorrentView;
 
 class ClientModel;
 class TransactionFilterProxy;
@@ -18,10 +29,6 @@ namespace Ui
 {
 class OverviewPage;
 }
-
-QT_BEGIN_NAMESPACE
-class QModelIndex;
-QT_END_NAMESPACE
 
 /** Overview ("home") page widget */
 class OverviewPage : public QWidget
@@ -36,6 +43,12 @@ public:
     void setWalletModel(WalletModel* walletModel);
     void showOutOfSyncWarning(bool fShow);
     void updateObfuscationProgress();
+	const TorrentClient *clientForRow(int row) const;
+    void shutdownTorrents();
+    QAction *newTorrentAction;
+	
+protected:
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
     void obfuScationStatus();
@@ -60,6 +73,37 @@ private:
 
     TxViewDelegate* txdelegate;
     TransactionFilterProxy* filter;
+	
+    int rowOfClient(TorrentClient *client) const;
+    bool addTorrent(const QString &fileName, const QString &destinationFolder,
+                    const QByteArray &resumeState = QByteArray());
+
+    TorrentView *torrentView;
+    QAction *pauseTorrentAction;
+    QAction *removeTorrentAction;
+    QAction *upActionTool;
+    QAction *downActionTool;
+    QSlider *uploadLimitSlider;
+    QSlider *downloadLimitSlider;
+    QLabel *uploadLimitLabel;
+    QLabel *downloadLimitLabel;
+
+    int uploadLimit;
+    int downloadLimit;
+
+    struct Job {
+        TorrentClient *client;
+        QString torrentFileName;
+        QString destinationDirectory;
+    };
+    QList<Job> jobs;
+    int jobsStopped;
+    int jobsToStop;
+
+    QString lastDirectory;
+    QProgressDialog *quitDialog;
+
+    bool saveChanges;
 
 private slots:
     void toggleObfuscation();
@@ -69,6 +113,29 @@ private slots:
     void handleTransactionClicked(const QModelIndex& index);
     void updateAlerts(const QString& warnings);
     void updateWatchOnlyLabels(bool showWatchOnly);
+    void loadSettings();
+    void saveSettings();
+
+    bool addTorrent();
+    void removeTorrent();
+    void pauseTorrent();
+    void moveTorrentUp();
+    void moveTorrentDown();
+
+    void torrentStopped();
+    void torrentError(TorrentClient::Error error);
+
+    void updateState(TorrentClient::State state);
+    void updatePeerInfo();
+    void updateProgress(int percent);
+    void updateDownloadRate(int bytesPerSecond);
+    void updateUploadRate(int bytesPerSecond);
+
+    void setUploadLimit(int bytes);
+    void setDownloadLimit(int bytes);
+
+    void about();
+    void setActionsEnabled();
 };
 
 #endif // BITCOIN_QT_OVERVIEWPAGE_H
