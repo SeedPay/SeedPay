@@ -1,8 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers 
-// Copyright (c) 2015-2017 The Blackbook developers
+// Copyright (c) 2015-2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,12 +14,12 @@
 #include "uint256.h"
 #include "version.h"
 
-#include "crypto/Lyra2REV2/Lyra2.h"
-#include "crypto/Lyra2REV2/sph_blake.h"
-#include "crypto/Lyra2REV2/sph_keccak.h"
-#include "crypto/Lyra2REV2/sph_skein.h"
-#include "crypto/Lyra2REV2/sph_cubehash.h"
-#include "crypto/Lyra2REV2/sph_bmw.h"
+#include "crypto/sph_blake.h"
+#include "crypto/sph_bmw.h"
+#include "crypto/sph_groestl.h"
+#include "crypto/sph_jh.h"
+#include "crypto/sph_keccak.h"
+#include "crypto/sph_skein.h"
 
 #include <iomanip>
 #include <openssl/sha.h>
@@ -64,67 +63,29 @@ public:
 #define GLOBAL extern
 #endif
 
-GLOBAL sph_blake256_context     z_blake;
-GLOBAL sph_cubehash256_context  z_cubehash;
-GLOBAL sph_keccak256_context    z_keccak;
-GLOBAL sph_skein256_context     z_skein;
-GLOBAL sph_bmw256_context      z_bmw;
+GLOBAL sph_blake512_context z_blake;
+GLOBAL sph_bmw512_context z_bmw;
+GLOBAL sph_groestl512_context z_groestl;
+GLOBAL sph_jh512_context z_jh;
+GLOBAL sph_keccak512_context z_keccak;
+GLOBAL sph_skein512_context z_skein;
 
-#define fillz() do { \
-    sph_blake256_init(&z_blake); \
-    sph_cubehash256_init(&z_cubehash); \
-    sph_keccak256_init(&z_keccak); \
-    sph_skein256_init(&z_skein); \
-    sph_bmw256_init(&z_bmw); \
-} while (0)
+#define fillz()                          \
+    do {                                 \
+        sph_blake512_init(&z_blake);     \
+        sph_bmw512_init(&z_bmw);         \
+        sph_groestl512_init(&z_groestl); \
+        sph_jh512_init(&z_jh);           \
+        sph_keccak512_init(&z_keccak);   \
+        sph_skein512_init(&z_skein);     \
+    } while (0)
 
 #define ZBLAKE (memcpy(&ctx_blake, &z_blake, sizeof(z_blake)))
-#define ZCUBEHASH (memcpy(&ctx_cubehash, &z_cubehash, sizeof(z_cubehash)))
+#define ZBMW (memcpy(&ctx_bmw, &z_bmw, sizeof(z_bmw)))
+#define ZGROESTL (memcpy(&ctx_groestl, &z_groestl, sizeof(z_groestl)))
+#define ZJH (memcpy(&ctx_jh, &z_jh, sizeof(z_jh)))
 #define ZKECCAK (memcpy(&ctx_keccak, &z_keccak, sizeof(z_keccak)))
 #define ZSKEIN (memcpy(&ctx_skein, &z_skein, sizeof(z_skein)))
-#define ZBMW (memcpy(&ctx_bmw, &z_bmw, sizeof(z_bmw)))
-
-//<------------------ Signatum LYRA2RE --------------------->
-template<typename T1>
-inline uint256 lyra2re2_hash(const T1 pbegin, const T1 pend)
-{
-    sph_blake256_context ctx_blake;
-    sph_cubehash256_context ctx_cubehash;
-    sph_keccak256_context ctx_keccak;
-    sph_skein256_context ctx_skein;
-    sph_bmw256_context ctx_bmw;
-    static unsigned char pblank[1];
-
-    uint256 hash[2];
-
-    sph_blake256_init(&ctx_blake);
-    sph_blake256(&ctx_blake, (pbegin == pend ? pblank : static_cast<const void*>(&pbegin[0])), (pend - pbegin) * sizeof(pbegin[0])); 
-    sph_blake256_close (&ctx_blake, static_cast<void*>(&hash[0]));
-
-    sph_keccak256_init(&ctx_keccak);
-    sph_keccak256(&ctx_keccak, static_cast<const void*>(&hash[0]), 32); 
-    sph_keccak256_close(&ctx_keccak, static_cast<void*>(&hash[1]));
-
-    sph_cubehash256_init(&ctx_cubehash);
-    sph_cubehash256(&ctx_cubehash, static_cast<const void*>(&hash[1]), 32);
-    sph_cubehash256_close(&ctx_cubehash, static_cast<void*>(&hash[0]));
-
-    LYRA2(static_cast<void*>(&hash[1]), 32, static_cast<const void*>(&hash[0]), 32, static_cast<const void*>(&hash[0]), 32, 1, 4, 4);
-
-    sph_skein256_init(&ctx_skein);
-    sph_skein256(&ctx_skein, static_cast<const void*>(&hash[1]), 32); 
-    sph_skein256_close(&ctx_skein, static_cast<void*>(&hash[0]));
-
-    sph_cubehash256_init(&ctx_cubehash);
-    sph_cubehash256(&ctx_cubehash, static_cast<const void*>(&hash[0]), 32);
-    sph_cubehash256_close(&ctx_cubehash, static_cast<void*>(&hash[1]));
-
-    sph_bmw256_init(&ctx_bmw);
-    sph_bmw256(&ctx_bmw, static_cast<const void*>(&hash[1]), 32);
-    sph_bmw256_close(&ctx_bmw, static_cast<void*>(&hash[0]));
-
-    return hash[0];
-}
 
 /* ----------- Bitcoin Hash ------------------------------------------------- */
 /** A hasher class for Bitcoin's 160-bit hash (SHA-256 + RIPEMD-160). */
@@ -307,6 +268,92 @@ void BIP32Hash(const unsigned char chainCode[32], unsigned int nChild, unsigned 
 //int HMAC_SHA512_Init(HMAC_SHA512_CTX *pctx, const void *pkey, size_t len);
 //int HMAC_SHA512_Update(HMAC_SHA512_CTX *pctx, const void *pdata, size_t len);
 //int HMAC_SHA512_Final(unsigned char *pmd, HMAC_SHA512_CTX *pctx);
+
+/* ----------- Quark Hash ------------------------------------------------ */
+template <typename T1>
+inline uint256 HashQuark(const T1 pbegin, const T1 pend)
+
+{
+    sph_blake512_context ctx_blake;
+    sph_bmw512_context ctx_bmw;
+    sph_groestl512_context ctx_groestl;
+    sph_jh512_context ctx_jh;
+    sph_keccak512_context ctx_keccak;
+    sph_skein512_context ctx_skein;
+    static unsigned char pblank[1];
+
+    uint512 mask = 8;
+    uint512 zero = 0;
+
+    uint512 hash[9];
+
+    sph_blake512_init(&ctx_blake);
+    // ZBLAKE;
+    sph_blake512(&ctx_blake, (pbegin == pend ? pblank : static_cast<const void*>(&pbegin[0])), (pend - pbegin) * sizeof(pbegin[0]));
+    sph_blake512_close(&ctx_blake, static_cast<void*>(&hash[0]));
+
+    sph_bmw512_init(&ctx_bmw);
+    // ZBMW;
+    sph_bmw512(&ctx_bmw, static_cast<const void*>(&hash[0]), 64);
+    sph_bmw512_close(&ctx_bmw, static_cast<void*>(&hash[1]));
+
+    if ((hash[1] & mask) != zero) {
+        sph_groestl512_init(&ctx_groestl);
+        // ZGROESTL;
+        sph_groestl512(&ctx_groestl, static_cast<const void*>(&hash[1]), 64);
+        sph_groestl512_close(&ctx_groestl, static_cast<void*>(&hash[2]));
+    } else {
+        sph_skein512_init(&ctx_skein);
+        // ZSKEIN;
+        sph_skein512(&ctx_skein, static_cast<const void*>(&hash[1]), 64);
+        sph_skein512_close(&ctx_skein, static_cast<void*>(&hash[2]));
+    }
+
+    sph_groestl512_init(&ctx_groestl);
+    // ZGROESTL;
+    sph_groestl512(&ctx_groestl, static_cast<const void*>(&hash[2]), 64);
+    sph_groestl512_close(&ctx_groestl, static_cast<void*>(&hash[3]));
+
+    sph_jh512_init(&ctx_jh);
+    // ZJH;
+    sph_jh512(&ctx_jh, static_cast<const void*>(&hash[3]), 64);
+    sph_jh512_close(&ctx_jh, static_cast<void*>(&hash[4]));
+
+    if ((hash[4] & mask) != zero) {
+        sph_blake512_init(&ctx_blake);
+        // ZBLAKE;
+        sph_blake512(&ctx_blake, static_cast<const void*>(&hash[4]), 64);
+        sph_blake512_close(&ctx_blake, static_cast<void*>(&hash[5]));
+    } else {
+        sph_bmw512_init(&ctx_bmw);
+        // ZBMW;
+        sph_bmw512(&ctx_bmw, static_cast<const void*>(&hash[4]), 64);
+        sph_bmw512_close(&ctx_bmw, static_cast<void*>(&hash[5]));
+    }
+
+    sph_keccak512_init(&ctx_keccak);
+    // ZKECCAK;
+    sph_keccak512(&ctx_keccak, static_cast<const void*>(&hash[5]), 64);
+    sph_keccak512_close(&ctx_keccak, static_cast<void*>(&hash[6]));
+
+    sph_skein512_init(&ctx_skein);
+    // SKEIN;
+    sph_skein512(&ctx_skein, static_cast<const void*>(&hash[6]), 64);
+    sph_skein512_close(&ctx_skein, static_cast<void*>(&hash[7]));
+
+    if ((hash[7] & mask) != zero) {
+        sph_keccak512_init(&ctx_keccak);
+        // ZKECCAK;
+        sph_keccak512(&ctx_keccak, static_cast<const void*>(&hash[7]), 64);
+        sph_keccak512_close(&ctx_keccak, static_cast<void*>(&hash[8]));
+    } else {
+        sph_jh512_init(&ctx_jh);
+        // ZJH;
+        sph_jh512(&ctx_jh, static_cast<const void*>(&hash[7]), 64);
+        sph_jh512_close(&ctx_jh, static_cast<void*>(&hash[8]));
+    }
+    return hash[8].trim256();
+}
 
 void scrypt_hash(const char* pass, unsigned int pLen, const char* salt, unsigned int sLen, char* output, unsigned int N, unsigned int r, unsigned int p, unsigned int dkLen);
 
