@@ -55,7 +55,7 @@ QT_FORMS_UI = \
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
   qt/moc_addresstablemodel.cpp \
-  qt/moc_addtorrentform.cpp.cpp \
+  qt/moc_addtorrentform.cpp \
   qt/moc_askpassphrasedialog.cpp \
   qt/moc_bip38tooldialog.cpp \
   qt/moc_bitcoinaddressvalidator.cpp \
