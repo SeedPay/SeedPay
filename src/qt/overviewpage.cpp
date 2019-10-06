@@ -643,21 +643,6 @@ void OverviewPage::toggleObfuscation()
     }
 }
 
-QSize OverviewPage::sizeHint() const
-{
-    const QHeaderView *header = torrentView->header();
-
-    // Add up the sizes of all header sections. The last section is
-    // stretched, so its size is relative to the size of the width;
-    // instead of counting it, we count the size of its largest value.
-    int width = fontMetrics().width(tr("Downloading") + "  ");
-    for (int i = 0; i < header->count() - 1; ++i)
-        width += header->sectionSize(i);
-
-    return QSize(width, QOverviewPage::sizeHint().height())
-        .expandedTo(QApplication::globalStrut());
-}
-
 const TorrentClient *OverviewPage::clientForRow(int row) const
 {
     // Return the client at the given row.

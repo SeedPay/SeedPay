@@ -41,7 +41,6 @@ public:
     void setWalletModel(WalletModel* walletModel);
     void showOutOfSyncWarning(bool fShow);
     void updateObfuscationProgress();
-	QSize sizeHint() const Q_DECL_OVERRIDE;
 	const TorrentClient *clientForRow(int row) const;
     void shutdownTorrents();
     QAction *newTorrentAction;
