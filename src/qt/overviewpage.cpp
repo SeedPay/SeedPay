@@ -217,7 +217,6 @@ OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
     torrentView->setSelectionBehavior(QAbstractItemView::SelectRows);
     torrentView->setAlternatingRowColors(true);
     torrentView->setRootIsDecorated(false);
-    setCentralWidget(torrentView);
 
     // Set header resize modes and initial section sizes
     QFontMetrics fm = fontMetrics();
