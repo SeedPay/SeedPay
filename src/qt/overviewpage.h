@@ -8,6 +8,9 @@
 #include "amount.h"
 #include "torrentclient.h"
 
+#include <QList>
+#include <QStringList>
+#include <QtWidgets>
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -17,6 +20,7 @@ class QLabel;
 class QProgressDialog;
 class QSlider;
 QT_END_NAMESPACE
+
 class TorrentView;
 class ClientModel;
 class TransactionFilterProxy;
