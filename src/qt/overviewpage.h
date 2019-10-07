@@ -6,7 +6,7 @@
 #define BITCOIN_QT_OVERVIEWPAGE_H
 
 #include "amount.h"
-#include "torrentclient.h"
+#include "qt/torrentclient.h"
 
 #include <QList>
 #include <QStringList>

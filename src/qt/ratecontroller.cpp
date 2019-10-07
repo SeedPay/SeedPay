@@ -1,5 +1,5 @@
-#include "peerwireclient.h"
-#include "ratecontroller.h"
+#include "qt/peerwireclient.h"
+#include "qt/ratecontroller.h"
 
 #include <QtCore>
 

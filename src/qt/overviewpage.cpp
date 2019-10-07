@@ -18,9 +18,9 @@
 #include "transactionfilterproxy.h"
 #include "transactiontablemodel.h"
 #include "walletmodel.h"
-#include "addtorrentdialog.h"
-#include "ratecontroller.h"
-#include "torrentclient.h"
+#include "qt/addtorrentdialog.h"
+#include "qt/ratecontroller.h"
+#include "qt/torrentclient.h"
 
 #include <QAbstractItemDelegate>
 #include <QtWidgets>

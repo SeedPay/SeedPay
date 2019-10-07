@@ -1,11 +1,11 @@
-#include "connectionmanager.h"
-#include "filemanager.h"
-#include "metainfo.h"
-#include "torrentclient.h"
-#include "torrentserver.h"
-#include "trackerclient.h"
-#include "peerwireclient.h"
-#include "ratecontroller.h"
+#include "qt/connectionmanager.h"
+#include "qt/filemanager.h"
+#include "qt/metainfo.h"
+#include "qt/torrentclient.h"
+#include "qt/torrentserver.h"
+#include "qt/trackerclient.h"
+#include "qt/peerwireclient.h"
+#include "qt/ratecontroller.h"
 
 #include <QtCore>
 #include <QNetworkInterface>

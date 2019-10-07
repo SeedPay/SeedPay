@@ -1,5 +1,5 @@
-#include "bencodeparser.h"
-#include "metainfo.h"
+#include "qt/bencodeparser.h"
+#include "qt/metainfo.h"
 
 #include <QDateTime>
 #include <QMetaType>

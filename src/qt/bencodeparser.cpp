@@ -1,4 +1,4 @@
-#include "bencodeparser.h"
+#include "qt/bencodeparser.h"
 
 #include <QList>
 #include <QMetaType>

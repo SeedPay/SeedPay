@@ -1,5 +1,5 @@
-#include "filemanager.h"
-#include "metainfo.h"
+#include "qt/filemanager.h"
+#include "qt/metainfo.h"
 
 #include <QByteArray>
 #include <QDir>

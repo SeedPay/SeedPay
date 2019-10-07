@@ -7,7 +7,7 @@
 #include <QThread>
 #include <QWaitCondition>
 
-#include "metainfo.h"
+#include "qt/metainfo.h"
 
 QT_BEGIN_NAMESPACE
 class QByteArray;

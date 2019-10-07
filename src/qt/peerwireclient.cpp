@@ -1,4 +1,4 @@
-#include "peerwireclient.h"
+#include "qt/peerwireclient.h"
 
 #include <QHostAddress>
 #include <QTimerEvent>

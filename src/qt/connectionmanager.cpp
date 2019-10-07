@@ -1,4 +1,4 @@
-#include "connectionmanager.h"
+#include "qt/connectionmanager.h"
 
 #include <QByteArray>
 #include <QDateTime>
